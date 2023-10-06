@@ -21,7 +21,6 @@ fun Application.modules() {
         val app = modules()
         GlobalKoinContext.koin = app.koin
     }
-    registerEventHandlers()
     connectToDatabase()
     executeFlywayMigration()
     installRoutes()
