@@ -4,10 +4,18 @@ plugins {
     id(KotlinXSerialization) version Versions.kotlinVersion
     id(ShadowJar) version Versions.shadowJarVersion
     id("org.jetbrains.dokka") version "1.7.20"
+    id("io.gitlab.arturbosch.detekt").version("1.23.1")
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.0"
 }
 
 group = "com.bit.lake"
 version = "1.0-SNAPSHOT"
+
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    config.setFrom("$rootDir/config/detekt.yml")
+}
 
 application {
     mainClass.set("boot.ApplicationKt")
