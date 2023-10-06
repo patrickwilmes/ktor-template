@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.PluginDependenciesSpecScope
+
 object ArrowDependencies {
     val arrowStack = "io.arrow-kt:arrow-stack:${Versions.arrowVersion}"
     val arrowCore = "io.arrow-kt:arrow-core"

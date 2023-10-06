@@ -1,11 +1,5 @@
 plugins {
-    application
-    kotlin(KotlinJvm) version Versions.kotlinVersion
-    id(KotlinXSerialization) version Versions.kotlinVersion
-    id(ShadowJar) version Versions.shadowJarVersion
-    id("org.jetbrains.dokka") version "1.7.20"
-    id("io.gitlab.arturbosch.detekt").version("1.23.1")
-    id("org.jlleitschuh.gradle.ktlint") version "11.6.0"
+    applyCommonPlugins()
 }
 
 group = "com.bit.lake"

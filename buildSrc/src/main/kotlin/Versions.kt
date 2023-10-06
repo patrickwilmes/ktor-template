@@ -14,4 +14,6 @@ object Versions {
     val koinVersion = "3.5.0"
     val caffeineVersion = "3.1.8"
     val dokkaVersion = "1.9.0"
+    val detektVersion = "1.23.1"
+    val ktLintVersion = "11.6.0"
 }
