@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>EmptyFunctionBlock:Modules.kt${ }</ID>
+    <ID>MagicNumber:PageInfo.kt$10</ID>
+    <ID>MagicNumber:StringFunctions.kt$3</ID>
+    <ID>MatchingDeclarationName:DatabaseConnection.kt$DatabasePool</ID>
+    <ID>MatchingDeclarationName:IdAware.kt$Entity</ID>
+    <ID>MatchingDeclarationName:Modules.kt$GlobalKoinContext</ID>
+    <ID>MaxLineLength:CommonTable.kt$suspend inline</ID>
+    <ID>TooGenericExceptionCaught:Failure.kt$e: Throwable</ID>
+    <ID>TopLevelPropertyNaming:File.kt$const val XmlFileExt = ".xml"</ID>
+    <ID>UnusedPrivateProperty:ConfigAccess.kt$ConfigAccess$private val appConfig = HoconApplicationConfig(ConfigFactory.load())</ID>
+    <ID>UnusedPrivateProperty:DatabaseConnection.kt$DatabasePool$private val appConfig = HoconApplicationConfig(ConfigFactory.load())</ID>
+    <ID>WildcardImport:Application.kt$import io.ktor.server.netty.*</ID>
+    <ID>WildcardImport:Common.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:Common.kt$import io.ktor.server.request.*</ID>
+    <ID>WildcardImport:Common.kt$import io.ktor.util.pipeline.*</ID>
+    <ID>WildcardImport:CommonTable.kt$import org.jetbrains.exposed.sql.*</ID>
+    <ID>WildcardImport:ConfigAccess.kt$import io.ktor.server.config.*</ID>
+    <ID>WildcardImport:Configuration.kt$import io.ktor.http.*</ID>
+    <ID>WildcardImport:Configuration.kt$import io.ktor.serialization.kotlinx.json.*</ID>
+    <ID>WildcardImport:Configuration.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:Configuration.kt$import io.ktor.server.plugins.contentnegotiation.*</ID>
+    <ID>WildcardImport:Configuration.kt$import io.ktor.server.plugins.cors.routing.*</ID>
+    <ID>WildcardImport:DatabaseConnection.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:DatabaseConnection.kt$import io.ktor.server.config.*</ID>
+    <ID>WildcardImport:Event.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:Modules.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:PageInfo.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:PageInfo.kt$import io.ktor.util.pipeline.*</ID>
+    <ID>WildcardImport:Perf.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:Perf.kt$import io.ktor.server.request.*</ID>
+    <ID>WildcardImport:Perf.kt$import io.ktor.util.pipeline.*</ID>
+    <ID>WildcardImport:Request.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:Request.kt$import io.ktor.util.pipeline.*</ID>
+    <ID>WildcardImport:Response.kt$import io.ktor.client.statement.*</ID>
+    <ID>WildcardImport:Response.kt$import io.ktor.http.*</ID>
+    <ID>WildcardImport:Response.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:Response.kt$import io.ktor.server.response.*</ID>
+    <ID>WildcardImport:Response.kt$import io.ktor.util.pipeline.*</ID>
+    <ID>WildcardImport:Server.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:Server.kt$import io.ktor.server.config.*</ID>
+    <ID>WildcardImport:Server.kt$import io.ktor.server.engine.*</ID>
+    <ID>WildcardImport:Url.kt$import io.ktor.server.application.*</ID>
+    <ID>WildcardImport:Url.kt$import io.ktor.util.pipeline.*</ID>
+  </CurrentIssues>
+</SmellBaseline>
