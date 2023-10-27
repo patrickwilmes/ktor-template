@@ -25,7 +25,6 @@ dependencies {
     implementation(CoreDependencies.kotlinXCoroutines)
     implementation(CoreDependencies.logbackClassic)
     implementation(CoreDependencies.caffeine)
-    implementation(project(":commons"))
     dokkaGfmPlugin(CoreDependencies.dokka)
 
     testImplementation(TestDependencies.assertK)
@@ -36,5 +35,14 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xcontext-receivers")
+    }
+}
+
+tasks.dokkaHtml.configure {
+    dokkaSourceSets {
+        configureEach {
+            val docsRoot = "$rootDir/docs/packages"
+            includes.from()
+        }
     }
 }

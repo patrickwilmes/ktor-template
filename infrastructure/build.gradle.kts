@@ -33,6 +33,7 @@ dependencies {
     implementation(CoreDependencies.kotlinXCoroutines)
     implementation(CoreDependencies.logbackClassic)
     implementation(CoreDependencies.caffeine)
+    implementation(project(":commons"))
     dokkaGfmPlugin(CoreDependencies.dokka)
 
     testImplementation(TestDependencies.assertK)

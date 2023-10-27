@@ -1,9 +1,9 @@
 package common.db
 
+import Entity
 import arrow.core.Either
 import arrow.core.continuations.either
 import arrow.core.continuations.ensureNotNull
-import domain.Entity
 import failure.Failure
 import failure.trap
 import functions.mapToSet

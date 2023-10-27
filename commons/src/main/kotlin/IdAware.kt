@@ -1,5 +1,3 @@
-package domain
-
 import identifier.URN
 
 
