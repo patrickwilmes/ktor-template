@@ -1,13 +1,10 @@
 package boot
 
-import ConfigurationValue
-import configValue
 import io.ktor.server.application.*
 import logging.dbgln
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.MigrationInfoService
 import org.jetbrains.exposed.sql.Database
-
 
 fun Application.connectToDatabase() {
     Database.connect(

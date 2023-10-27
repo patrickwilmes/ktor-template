@@ -1,3 +1,5 @@
+package boot
+
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -11,10 +13,10 @@ fun Application.booleanConfigValue(configurationValue: ConfigurationValue): Bool
     configValue(configurationValue).toBoolean()
 
 sealed class ConfigurationValue(val key: String) {
-    object DatabaseUrl : ConfigurationValue("database.url")
-    object DatabaseUser : ConfigurationValue("database.username")
-    object DatabasePassword : ConfigurationValue("database.password")
-    object DevelopmentMode : ConfigurationValue("ktor.development")
+    data object DatabaseUrl : ConfigurationValue("database.url")
+    data object DatabaseUser : ConfigurationValue("database.username")
+    data object DatabasePassword : ConfigurationValue("database.password")
+    data object DevelopmentMode : ConfigurationValue("ktor.development")
 }
 
 

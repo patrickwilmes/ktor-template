@@ -8,6 +8,6 @@ fun determineDomainFromUrnString(urnString: String): Domain =
     urnString.split(":")[1].let { domainPart ->
         domainPart.replaceFirstChar { firstChar -> firstChar.titlecaseChar() }
             .let { upperCasedDomainPart ->
-                Domain.values().first { it.name.lowercase() == upperCasedDomainPart.lowercase() }
+                Domain.entries.first { it.name.lowercase() == upperCasedDomainPart.lowercase() }
             }
     }

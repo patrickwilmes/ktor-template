@@ -55,7 +55,6 @@ class URN private constructor(
             createFromStringOrGetRandom(urnString = it)
         }
 
-
         /*
         Use this one to signal that we are in a context where it's impossible to get a wrong URN string.
         If we really get a wrong URN here, someone messed with the database, which is a big NO-NO.

@@ -16,5 +16,3 @@ suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCall>.rece
             message = "Unable to receive object from request ${it.message}"
         )
     }
-
-fun Int.toBoolean() = this == 1

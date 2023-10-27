@@ -26,7 +26,7 @@ data class ResultList<T>(
  * having a custom search index. The interface provides
  * a function for selecting all data out of a database
  * without paging. This function must never be used
- * in performance critical szenarios.
+ * in performance critical scenarios.
  */
 interface IndexableContent<T> {
     /**
