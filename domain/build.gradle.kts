@@ -11,13 +11,6 @@ detekt {
     config.setFrom("$rootDir/config/detekt.yml")
 }
 
-application {
-    mainClass.set("boot.ApplicationKt")
-
-    val isDevelopment: Boolean = project.ext.has("development")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
-}
-
 repositories {
     jcenter()
     mavenCentral()
@@ -42,14 +35,5 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xcontext-receivers")
-    }
-}
-
-tasks.dokkaHtml.configure {
-    dokkaSourceSets {
-        configureEach {
-            val docsRoot = "$rootDir/docs/packages"
-            includes.from()
-        }
     }
 }

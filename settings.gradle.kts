@@ -1,2 +1,3 @@
 rootProject.name = "ktor-template"
-include("application")
+include("infrastructure")
+include("domain")

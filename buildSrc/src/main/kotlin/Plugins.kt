@@ -10,11 +10,14 @@ private const val Dokka = "org.jetbrains.dokka"
 private const val Detekt = "io.gitlab.arturbosch.detekt"
 private const val Ktlint = "org.jlleitschuh.gradle.ktlint"
 
-fun PluginDependenciesSpecScope.applyCommonPlugins() {
+fun PluginDependenciesSpecScope.applyApplicationPlugins() {
     application
+    id(ShadowJar) version Versions.shadowJarVersion
+}
+
+fun PluginDependenciesSpecScope.applyCommonPlugins() {
     kotlin(KotlinJvm) version Versions.kotlinVersion
     id(KotlinXSerialization) version Versions.kotlinVersion
-    id(ShadowJar) version Versions.shadowJarVersion
     id(Dokka) version Versions.dokkaVersion
     id(Detekt) version Versions.detektVersion
     id(Ktlint) version Versions.ktLintVersion

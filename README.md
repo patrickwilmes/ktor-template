@@ -22,3 +22,11 @@ In order to ship the application, the [shadow-jar](https://github.com/johnrengel
 In addition to that we are using some development tools, to streamline the dev workflow a bit:
 1. there is a minimal [editorconfig](https://editorconfig.org/) in place for cross editor / ide formatting
 2. we have a basic [pre-commit](https://pre-commit.com/) setup, to check things like line feeds before every commit
+
+# Structure of the project
+
+## Infrastructure
+
+## Domain
+The domain module serves as an example, to demonstrate how and where to implement domain logic.
+A real life application can have multiple domain modules, separating different concerns.
