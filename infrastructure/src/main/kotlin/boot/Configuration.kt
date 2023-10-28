@@ -15,7 +15,7 @@ sealed class Value {
     data class StringValue(val value: String) : Value()
 }
 
-fun <K> Application.applyForConfigTriple(
+fun <K> applyForConfigTriple(
     noOpAction: () -> K,
     opAction: (String, String, String) -> K,
     value1: Value,
