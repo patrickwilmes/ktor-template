@@ -1,8 +1,10 @@
 package common
 
-import io.ktor.server.application.*
-import io.ktor.server.request.*
-import io.ktor.util.pipeline.*
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.call
+import io.ktor.server.application.log
+import io.ktor.server.request.uri
+import io.ktor.util.pipeline.PipelineContext
 import logging.dbgln
 
 suspend fun <T> PipelineContext<Unit, ApplicationCall>.measureExecTime(block: suspend () -> T): T {

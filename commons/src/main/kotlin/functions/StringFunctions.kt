@@ -1,5 +1,11 @@
 package functions
 
-fun String.as3CharPrefix() = if (length >= 3) substring(0 until 3).lowercase() else lowercase()
+private const val MAX_CHAR_COUNT = 3
 
-fun String.toRegexForSearch() = Regex("(.)*" + replace(" ", "(.)*").replace(",", "(.)*").lowercase() + "(.)*")
+fun String.as3CharPrefix() = if (length >= MAX_CHAR_COUNT)
+    substring(0 until MAX_CHAR_COUNT).lowercase()
+else lowercase()
+
+fun String.toRegexForSearch() = Regex("(.)*"
+    + replace(" ", "(.)*")
+        .replace(",", "(.)*").lowercase() + "(.)*")

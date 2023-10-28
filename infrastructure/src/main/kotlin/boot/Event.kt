@@ -1,8 +1,7 @@
 package boot
 
 import io.ktor.events.EventDefinition
-import io.ktor.server.application.*
-import kotlinx.coroutines.runBlocking
+import io.ktor.server.application.Application
 
 val InvalidateIndicesAndDirectoriesEvent: EventDefinition<Application> = EventDefinition()
 

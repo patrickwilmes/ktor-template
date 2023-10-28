@@ -26,17 +26,12 @@ suspend fun <A> trap(
     function: suspend () -> A
 ): Either<Failure, A> {
     dbgln("Entering trap context $contextName")
-    return try {
+    return Either.catch {
         measureExecTime(contextName) {
-            Either.Right(function())
+            function()
         }
-    } catch (e: Throwable) {
-        dbgln(contextName, e)
-        Either.Left(
-            Failure.BasicFailure(
-                message = e.message ?: "Unknown reason for error!",
-            )
-        )
+    }.mapLeft {
+        Failure.BasicFailure(it.message ?: "Failed with unknown reason!")
     }.let {
         dbgln("Exiting trap context $contextName")
         it

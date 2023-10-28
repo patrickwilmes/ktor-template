@@ -3,11 +3,14 @@ package common.http
 import arrow.core.Either
 import arrow.core.left
 import failure.Failure
-import io.ktor.client.statement.*
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.util.pipeline.*
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.isSuccess
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.call
+import io.ktor.server.response.respond
+import io.ktor.util.pipeline.PipelineContext
 
 suspend fun PipelineContext<Unit, ApplicationCall>.respondWithEntityCreated(path: String) {
     call.response.headers.append("Location", buildUrlForPath(path))

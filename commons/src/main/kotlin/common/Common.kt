@@ -2,9 +2,10 @@ package common
 
 import arrow.core.Either
 import failure.Failure
-import io.ktor.server.application.*
-import io.ktor.server.request.*
-import io.ktor.util.pipeline.*
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.call
+import io.ktor.server.request.receive
+import io.ktor.util.pipeline.PipelineContext
 
 fun PipelineContext<Unit, ApplicationCall>.strParameter(name: String): Either<Failure, String> =
     Either.catch { call.parameters[name]!! }

@@ -5,8 +5,6 @@ import failure.Failure
 import failure.trap
 import java.io.File
 
-const val XmlFileExt = ".xml"
-
 suspend fun String.asFileWithName(name: String): Either<Failure, File> =
     trap(contextName = String::asFileWithName.name) {
         val rootDir = File(this)

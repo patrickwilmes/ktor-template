@@ -1,6 +1,6 @@
 package boot
 
-import io.ktor.server.application.*
+import io.ktor.server.application.Application
 import logging.dbgln
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.MigrationInfoService

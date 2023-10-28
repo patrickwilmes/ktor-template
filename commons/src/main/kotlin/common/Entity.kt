@@ -1,3 +1,5 @@
+package common
+
 import identifier.URN
 
 interface Entity {

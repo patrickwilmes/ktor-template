@@ -1,18 +1,30 @@
 package common.db
 
-import Entity
 import arrow.core.Either
 import arrow.core.continuations.either
 import arrow.core.continuations.ensureNotNull
+import common.Entity
 import failure.Failure
 import failure.trap
 import functions.mapToSet
 import identifier.URN
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.Column
+import org.jetbrains.exposed.sql.EqOp
+import org.jetbrains.exposed.sql.Expression
+import org.jetbrains.exposed.sql.ExpressionWithColumnType
+import org.jetbrains.exposed.sql.Op
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.wrap
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.statements.InsertStatement
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 import kotlin.math.ceil
 
 data class ResultList<T>(
@@ -39,7 +51,11 @@ interface IndexableContent<T> {
 
 interface ReadAddon<T> {
     suspend fun selectById(id: URN): Either<Failure, T>
-    suspend fun selectAll(page: UInt, size: UInt, vararg sorting: Pair<Expression<*>, SortOrder>): Either<Failure, ResultList<T>>
+    suspend fun selectAll(
+        page: UInt,
+        size: UInt,
+        vararg sorting: Pair<Expression<*>, SortOrder>
+    ): Either<Failure, ResultList<T>>
 }
 
 interface CrudRepository<T> : ReadAddon<T> {
@@ -58,7 +74,11 @@ abstract class AbstractTable<T : Entity>(override val name: String) : MappingTab
     abstract val id: Column<String>
 }
 
-suspend inline fun <reified T : Entity> execInsert(contextName: String, table: AbstractTable<T>, element: T): Either<Failure, URN> = trap(
+suspend inline fun <reified T : Entity> execInsert(
+    contextName: String,
+    table: AbstractTable<T>,
+    element: T
+): Either<Failure, URN> = trap(
     contextName = contextName,
 ) {
     transaction {
@@ -70,7 +90,11 @@ suspend inline fun <reified T : Entity> execInsert(contextName: String, table: A
     }
 }
 
-suspend inline fun <reified T : Entity> execSelectSingleByStatement(contextName: String, table: AbstractTable<T>, op: Op<Boolean>): Either<Failure, T> =
+suspend inline fun <reified T : Entity> execSelectSingleByStatement(
+    contextName: String,
+    table: AbstractTable<T>,
+    op: Op<Boolean>
+): Either<Failure, T> =
     either {
         val possibleEntity = trap(
             contextName = contextName,
@@ -86,10 +110,18 @@ suspend inline fun <reified T : Entity> execSelectSingleByStatement(contextName:
         ensureNotNull(possibleEntity) { Failure.NotFoundFailure(message = "No such entity in context") }
     }
 
-suspend inline fun <reified T : Entity> execSelectById(contextName: String, table: AbstractTable<T>, id: URN): Either<Failure, T> =
+suspend inline fun <reified T : Entity> execSelectById(
+    contextName: String,
+    table: AbstractTable<T>,
+    id: URN
+): Either<Failure, T> =
     execSelectSingleByStatement(contextName, table, table.id eq id)
 
-suspend inline fun <reified T : Entity> execUpdate(contextName: String, table: AbstractTable<T>, elem: T): Either<Failure, URN> =
+suspend inline fun <reified T : Entity> execUpdate(
+    contextName: String,
+    table: AbstractTable<T>,
+    elem: T
+): Either<Failure, URN> =
     trap(
         contextName = contextName,
     ) {
@@ -101,7 +133,13 @@ suspend inline fun <reified T : Entity> execUpdate(contextName: String, table: A
         elem.id
     }
 
-suspend inline fun <reified T : Entity> execSelectAll(contextName: String, table: AbstractTable<T>, page: UInt, size: UInt, vararg sorting: Pair<Expression<*>, SortOrder>): Either<Failure, ResultList<T>> =
+suspend inline fun <reified T : Entity> execSelectAll(
+    contextName: String,
+    table: AbstractTable<T>,
+    page: UInt,
+    size: UInt,
+    vararg sorting: Pair<Expression<*>, SortOrder>
+): Either<Failure, ResultList<T>> =
     trap(
         contextName = contextName,
     ) {
@@ -111,11 +149,18 @@ suspend inline fun <reified T : Entity> execSelectAll(contextName: String, table
                 .limit(size.toInt(), (page * size).toLong())
                 .orderBy(*sorting)
                 .map { table.mapToDomain(it) }
-            ResultList(data = data, totalElements = total.toULong(), totalPages = ceil(total.toDouble() / size.toInt()).toUInt())
+            ResultList(
+                data = data,
+                totalElements = total.toULong(),
+                totalPages = ceil(total.toDouble() / size.toInt()).toUInt()
+            )
         }
     }
 
-suspend inline fun <reified T : Entity> execSelectAllUnPaged(contextName: String, table: AbstractTable<T>): Either<Failure, Set<T>> =
+suspend inline fun <reified T : Entity> execSelectAllUnPaged(
+    contextName: String,
+    table: AbstractTable<T>
+): Either<Failure, Set<T>> =
     trap(
         contextName = contextName,
     ) {
@@ -125,7 +170,11 @@ suspend inline fun <reified T : Entity> execSelectAllUnPaged(contextName: String
         }
     }
 
-suspend inline fun <reified T : Entity> execDelete(contextName: String, table: AbstractTable<T>, id: URN): Either<Failure, Unit> = trap(
+suspend inline fun <reified T : Entity> execDelete(
+    contextName: String,
+    table: AbstractTable<T>,
+    id: URN
+): Either<Failure, Unit> = trap(
     contextName = contextName,
 ) {
     transaction {

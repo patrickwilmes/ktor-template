@@ -6,7 +6,7 @@
     <ID>MagicNumber:PageInfo.kt$10</ID>
     <ID>MagicNumber:StringFunctions.kt$3</ID>
     <ID>MatchingDeclarationName:DatabaseConnection.kt$DatabasePool</ID>
-    <ID>MatchingDeclarationName:IdAware.kt$Entity</ID>
+    <ID>MatchingDeclarationName:IdAware.kt$common.Entity</ID>
     <ID>MatchingDeclarationName:Modules.kt$GlobalKoinContext</ID>
     <ID>MaxLineLength:CommonTable.kt$suspend inline</ID>
     <ID>TooGenericExceptionCaught:Failure.kt$e: Throwable</ID>
