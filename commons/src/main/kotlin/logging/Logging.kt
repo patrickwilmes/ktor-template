@@ -11,7 +11,10 @@ fun dbgln(message: String, throwable: Throwable) {
     throwable.printStackTrace()
 }
 
-inline fun <reified T> T.dbgln(message: String, loggerName: String = T::class.simpleName ?: "Heimdall"): T {
+inline fun <reified T> T.dbgln(
+    message: String,
+    loggerName: String = T::class.simpleName ?: "Heimdall",
+): T {
     LoggerFactory.getLogger(loggerName).debug(message)
     return this
 }

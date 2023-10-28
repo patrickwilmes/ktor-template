@@ -52,7 +52,6 @@ sealed class ConfigurationValue(val key: String) {
     data object DevelopmentMode : ConfigurationValue("ktor.development")
 }
 
-
 @OptIn(ExperimentalSerializationApi::class)
 fun Application.configure(isDevelopmentMode: Boolean = false) {
     install(CORS) {
@@ -63,14 +62,17 @@ fun Application.configure(isDevelopmentMode: Boolean = false) {
         allowHeader(HttpHeaders.Authorization)
         allowHeader(HttpHeaders.AccessControlAllowOrigin)
         allowHeader(HttpHeaders.ContentType)
-        if (isDevelopmentMode)
+        if (isDevelopmentMode) {
             anyHost()
+        }
     }
     install(ContentNegotiation) {
-        json(Json {
-            ignoreUnknownKeys = true
-            encodeDefaults = true
-            explicitNulls = false
-        })
+        json(
+            Json {
+                ignoreUnknownKeys = true
+                encodeDefaults = true
+                explicitNulls = false
+            },
+        )
     }
 }

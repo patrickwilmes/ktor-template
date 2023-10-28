@@ -16,12 +16,11 @@ sealed interface UrnSuffix {
     data class UuidSuffix(override val value: String = generateRandomUUID()) : UrnSuffix
 
     companion object {
-        fun determineSuffixForUrnString(urnString: String): UrnSuffix =
-            { urn: String ->
-                urn.split(":")[2]
-            }.let { urnIdPartFunc ->
-                UuidSuffix(value = urnIdPartFunc(urnString))
-            }
+        fun determineSuffixForUrnString(urnString: String): UrnSuffix = { urn: String ->
+            urn.split(":")[2]
+        }.let { urnIdPartFunc ->
+            UuidSuffix(value = urnIdPartFunc(urnString))
+        }
     }
 }
 
@@ -51,17 +50,19 @@ class URN private constructor(
 
     companion object {
 
-        fun createFromNormalizedString(normalizedUrnString: String): URN = normalizedUrnString.replace("_", ":").let {
-            createFromStringOrGetRandom(urnString = it)
-        }
+        fun createFromNormalizedString(normalizedUrnString: String): URN =
+            normalizedUrnString.replace("_", ":").let {
+                createFromStringOrGetRandom(urnString = it)
+            }
 
         /*
         Use this one to signal that we are in a context where it's impossible to get a wrong URN string.
         If we really get a wrong URN here, someone messed with the database, which is a big NO-NO.
          */
-        fun createFromStringOrGetRandom(urnString: String): URN = createFromString(urn = urnString).getOrElse {
-            assemble(domain = Domain.Undefined, suffix = UrnSuffix.UuidSuffix())
-        }
+        fun createFromStringOrGetRandom(urnString: String): URN =
+            createFromString(urn = urnString).getOrElse {
+                assemble(domain = Domain.Undefined, suffix = UrnSuffix.UuidSuffix())
+            }
 
         fun toUrnOrNull(urn: String): URN? =
             when (val possibleUrn = createFromString(urn)) {
@@ -89,20 +90,19 @@ class URN private constructor(
                 URN(
                     domain = Domain.values().first { it.name.lowercase() == domain.lowercase() },
                     suffix = UrnSuffix.determineSuffixForUrnString(urn),
-                )
+                ),
             )
         }
 
         fun assemble(domain: Domain, suffix: UrnSuffix): URN =
             URN(domain = domain, suffix = suffix)
-
     }
 }
 
 class URNSerializer : KSerializer<URN> {
     override val descriptor = PrimitiveSerialDescriptor(
         serialName = "URN",
-        kind = PrimitiveKind.STRING
+        kind = PrimitiveKind.STRING,
     )
 
     override fun deserialize(decoder: Decoder): URN =
@@ -115,5 +115,4 @@ class URNSerializer : KSerializer<URN> {
     override fun serialize(encoder: Encoder, value: URN) {
         encoder.encodeString(value.toString())
     }
-
 }

@@ -18,12 +18,11 @@ sealed interface Failure {
     data class NotFoundFailure(val message: String) : Failure {
         override fun asMessage(): String = message
     }
-
 }
 
 suspend fun <A> trap(
     contextName: String = "defaultContext",
-    function: suspend () -> A
+    function: suspend () -> A,
 ): Either<Failure, A> {
     dbgln("Entering trap context $contextName")
     return Either.catch {

@@ -14,6 +14,6 @@ fun PipelineContext<Unit, ApplicationCall>.strParameter(name: String): Either<Fa
 suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCall>.receiveObject(): Either<Failure, T> =
     Either.catch { call.receive<T>() }.mapLeft {
         Failure.BasicFailure(
-            message = "Unable to receive object from request ${it.message}"
+            message = "Unable to receive object from request ${it.message}",
         )
     }

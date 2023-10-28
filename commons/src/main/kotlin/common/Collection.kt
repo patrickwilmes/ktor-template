@@ -14,8 +14,9 @@ fun <T, R> Iterable<T>.mapNotNullToSet(predicate: (T) -> R?): Set<R> {
 fun <T> Iterable<T>.filterToSet(predicate: (T) -> Boolean): Set<T> {
     val target = mutableSetOf<T>()
     forEach {
-        if (predicate(it))
+        if (predicate(it)) {
             target.add(it)
+        }
     }
     return target
 }

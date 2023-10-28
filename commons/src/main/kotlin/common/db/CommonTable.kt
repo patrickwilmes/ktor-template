@@ -54,7 +54,7 @@ interface ReadAddon<T> {
     suspend fun selectAll(
         page: UInt,
         size: UInt,
-        vararg sorting: Pair<Expression<*>, SortOrder>
+        vararg sorting: Pair<Expression<*>, SortOrder>,
     ): Either<Failure, ResultList<T>>
 }
 
@@ -77,7 +77,7 @@ abstract class AbstractTable<T : Entity>(override val name: String) : MappingTab
 suspend inline fun <reified T : Entity> execInsert(
     contextName: String,
     table: AbstractTable<T>,
-    element: T
+    element: T,
 ): Either<Failure, URN> = trap(
     contextName = contextName,
 ) {
@@ -93,7 +93,7 @@ suspend inline fun <reified T : Entity> execInsert(
 suspend inline fun <reified T : Entity> execSelectSingleByStatement(
     contextName: String,
     table: AbstractTable<T>,
-    op: Op<Boolean>
+    op: Op<Boolean>,
 ): Either<Failure, T> =
     either {
         val possibleEntity = trap(
@@ -113,14 +113,14 @@ suspend inline fun <reified T : Entity> execSelectSingleByStatement(
 suspend inline fun <reified T : Entity> execSelectById(
     contextName: String,
     table: AbstractTable<T>,
-    id: URN
+    id: URN,
 ): Either<Failure, T> =
     execSelectSingleByStatement(contextName, table, table.id eq id)
 
 suspend inline fun <reified T : Entity> execUpdate(
     contextName: String,
     table: AbstractTable<T>,
-    elem: T
+    elem: T,
 ): Either<Failure, URN> =
     trap(
         contextName = contextName,
@@ -138,7 +138,7 @@ suspend inline fun <reified T : Entity> execSelectAll(
     table: AbstractTable<T>,
     page: UInt,
     size: UInt,
-    vararg sorting: Pair<Expression<*>, SortOrder>
+    vararg sorting: Pair<Expression<*>, SortOrder>,
 ): Either<Failure, ResultList<T>> =
     trap(
         contextName = contextName,
@@ -152,14 +152,14 @@ suspend inline fun <reified T : Entity> execSelectAll(
             ResultList(
                 data = data,
                 totalElements = total.toULong(),
-                totalPages = ceil(total.toDouble() / size.toInt()).toUInt()
+                totalPages = ceil(total.toDouble() / size.toInt()).toUInt(),
             )
         }
     }
 
 suspend inline fun <reified T : Entity> execSelectAllUnPaged(
     contextName: String,
-    table: AbstractTable<T>
+    table: AbstractTable<T>,
 ): Either<Failure, Set<T>> =
     trap(
         contextName = contextName,
@@ -173,7 +173,7 @@ suspend inline fun <reified T : Entity> execSelectAllUnPaged(
 suspend inline fun <reified T : Entity> execDelete(
     contextName: String,
     table: AbstractTable<T>,
-    id: URN
+    id: URN,
 ): Either<Failure, Unit> = trap(
     contextName = contextName,
 ) {

@@ -15,7 +15,12 @@ import org.jetbrains.exposed.sql.SortOrder
  *
  * @return [Array<Pair<Expression<*>, SortOrder>>] a representation of the [AbstractTable] columns defined by exposed mapped to the exposed [SortOrder]
  */
-fun createSortingParameter(mappingFunc: (String) -> Expression<*>, sort: Sort): Array<Pair<Expression<*>, SortOrder>> {
-    val sortOrderStringToSortOrder: (String) -> SortOrder = { if (it.lowercase() == "asc") SortOrder.ASC else SortOrder.DESC }
-    return sort.map { mappingFunc(it.first) to sortOrderStringToSortOrder(it.second) }.toTypedArray()
+fun createSortingParameter(
+    mappingFunc: (String) -> Expression<*>,
+    sort: Sort,
+): Array<Pair<Expression<*>, SortOrder>> {
+    val sortOrderStringToSortOrder: (String) -> SortOrder =
+        { if (it.lowercase() == "asc") SortOrder.ASC else SortOrder.DESC }
+    return sort.map { mappingFunc(it.first) to sortOrderStringToSortOrder(it.second) }
+        .toTypedArray()
 }

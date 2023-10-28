@@ -3,8 +3,9 @@ package functions
 fun <T> Iterable<T?>.filterNotNullToSet(): Set<T> {
     val result = mutableSetOf<T>()
     forEach { element ->
-        if (element != null)
+        if (element != null) {
             result.add(element)
+        }
     }
     return result
 }

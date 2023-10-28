@@ -11,8 +11,9 @@ suspend fun String.asFileWithName(name: String): Either<Failure, File> =
         if (!rootDir.exists()) rootDir.mkdir()
         if (endsWith(File.separator) && name.startsWith(File.separator)) {
             File(this + name.removePrefix(File.separator))
-        } else if (endsWith(File.separator) && !name.startsWith(File.separator))
+        } else if (endsWith(File.separator) && !name.startsWith(File.separator)) {
             File(this + name)
-        else
+        } else {
             File(this + File.separator + name)
+        }
     }
