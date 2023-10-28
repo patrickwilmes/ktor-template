@@ -1,16 +1,49 @@
 package boot
 
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.application.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.plugins.cors.routing.*
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
+import io.ktor.serialization.kotlinx.json.json
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.cors.routing.CORS
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 
-fun Application.configValue(configurationValue: ConfigurationValue): String = environment.config.property(configurationValue.key).getString()
+sealed class Value {
+    data object NoValue : Value()
+    data class StringValue(val value: String) : Value()
+}
+
+fun <K> Application.applyForConfigTriple(
+    noOpAction: () -> K,
+    opAction: (String, String, String) -> K,
+    value1: Value,
+    value2: Value,
+    value3: Value,
+): K {
+    val valueNotDetected = listOf(value1, value2, value3).any { it is Value.NoValue }
+    return if (valueNotDetected) {
+        noOpAction()
+    } else {
+        opAction(
+            (value1 as Value.StringValue).value,
+            (value2 as Value.StringValue).value,
+            (value3 as Value.StringValue).value,
+        )
+    }
+}
+
+fun Application.configValue(configurationValue: ConfigurationValue): Value {
+    val configValue = environment.config.propertyOrNull(configurationValue.key)
+    return if (configValue == null) Value.NoValue else Value.StringValue(configValue.getString())
+}
+
 fun Application.booleanConfigValue(configurationValue: ConfigurationValue): Boolean =
-    configValue(configurationValue).toBoolean()
+    when (configValue(configurationValue)) {
+        Value.NoValue -> false
+        is Value.StringValue -> configurationValue.key.toBoolean()
+    }
 
 sealed class ConfigurationValue(val key: String) {
     data object DatabaseUrl : ConfigurationValue("database.url")

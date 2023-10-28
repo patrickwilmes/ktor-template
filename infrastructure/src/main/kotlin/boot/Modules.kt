@@ -1,8 +1,9 @@
 package boot
 
-import io.ktor.server.application.*
+import com.bit.lake.demo.view.installDemoRoutes
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
 import koin.GlobalKoinContext
-import org.koin.core.Koin
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 
@@ -19,4 +20,5 @@ fun Application.modules() {
 }
 
 private fun Application.installRoutes() {
+    installDemoRoutes()
 }

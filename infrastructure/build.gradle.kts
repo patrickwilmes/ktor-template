@@ -34,6 +34,7 @@ dependencies {
     implementation(CoreDependencies.logbackClassic)
     implementation(CoreDependencies.caffeine)
     implementation(project(":commons"))
+    implementation(project(":domain"))
     dokkaGfmPlugin(CoreDependencies.dokka)
 
     testImplementation(TestDependencies.assertK)
